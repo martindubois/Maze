@@ -1,10 +1,11 @@
 
+// License http://www.apache.org/licenses/LICENSE-2.0
 // Product Maze
 
-/// \author    KMS - Martin Dubois, P.Eng.
+/// \author    KMS - Martin Dubois, P. Eng.
+/// \brief     Protocol de communication
 /// \copyright Copyright &copy; 2021 KMS
 /// \file      Includes/Maze_Protocol.h
-/// \brief     Protocol de communication
 
 // COMMENTAIRE PEDAGOGIQUE - Bonne pratique
 // Debutez toujours vos fichiers entete par la ligne qui suit ce commentaire.
@@ -20,25 +21,6 @@
 // de n'utiliser que le langage C dans ce fichier entete. Il sera donc
 // possible de coder un client ou un serveur en langage C on dans un autre
 // langage qui supporte certaines interactions avec le langage C.
-
-// COMMENTAIRE PEDAGOGIQUE - Bonne pratique
-// Utilisez toujours le meme ordre pour inclure les fichiers d'entete.
-// Commencez par inclure les fichiers les plus generaux et terminez en
-// incluant les fichiers les plus specifique au projet. Plus precisement:
-// 1. Les fichiers d'entete de la librairie C
-// 2. Les fichiers d'entete de la librairie C++
-// 3. Les fichiers d'entete des librairies externe utilisees par le produit.
-// 4. Les fichiers d'entete des librairies externe utilisees par le
-//    composant.
-// 5. Les fichiers d'entete du produit.
-// 6. Les fichiers d'entete publiques du composant.
-// 7. Les fichiers d'entete prives du composant.
-// Cet ordre suit l'ordre dependance normale. Par exemple, il est normale
-// qu'un fichier entete definit dans un composant depende sur les fichiers
-// d'entete d'une librairie externe. Au contraire, un fichier d'entete d'un
-// produit ne doit jamais dependre d'un fichier d'entete prive d'un
-// composant.
-// TODO Deplacer ce commentaire pedagogique a un endroit plus approprie.
 
 // ===== C ==================================================================
 
@@ -59,8 +41,8 @@
 
 // La premiere chose que le client envoie suite a la connexion est une des
 // deux chaine suivante pour indiquer le mode de communication.
-#define MAZE_ASCII  "ASCII\n"
-#define MAZE_BINARY "BINARY"
+#define Maze_ASCII  "ASCII\n"
+#define Maze_BINARY "BINARY"
 
 // COMMENTAIRE PEDAGOGIQUE - Bonne pratique
 // Quand vous utilisez le preprocesseur pour definir une constante numerique,
@@ -69,29 +51,33 @@
 // exemple, MAZE_DIR_EAST.0 serait une valeur en virgule flotante valide
 // si la definition ne contient pas de parenthese (1.0) mais provoquera une
 // erreur de compilation si la definition contient des parenthese ((1).0).
-#define MAZE_DIR_NORTH (0)
-#define MAZE_DIR_EAST  (1)
-#define MAZE_DIR_SOUTH (2)
-#define MAZE_DIR_WEST  (3)
+#define Maze_DIR_NORTH (0)
+#define Maze_DIR_EAST  (1)
+#define Maze_DIR_SOUTH (2)
+#define Maze_DIR_WEST  (3)
 
-#define MAZE_DIR_QTY (4)
+#define Maze_DIR_QTY (4)
 
-#define MAZE_DIR_NORTH_BIT (1 << MAZE_DIR_NORTH)
-#define MAZE_DIR_EAST_BIT  (1 << MAZE_DIR_EAST)
-#define MAZE_DIR_SOUTH_BIY (1 << MAZE_DIR_SOUTH)
-#define MAZE_DIR_WEST_BIT  (1 << MAZE_DIR_WEST)
+#define Maze_DIR_BIT(D) (1 << (D))
+
+#define Maze_DIR_NORTH_BIT Maze_DIR_BIT(MAZE_DIR_NORTH)
+#define Maze_DIR_EAST_BIT  Maze_DIR_BIT(MAZE_DIR_EAST)
+#define Maze_DIR_SOUTH_BIY Maze_DIR_BIT(MAZE_DIR_SOUTH)
+#define Maze_DIR_WEST_BIT  Maze_DIR_BIT(MAZE_DIR_WEST)
+
+#define Maze_DIR_ALL_BITS (0x0f)
 
 // COMMENTAIRE PEDAGOGIQUE - Bonne pratique
 // Utilisez un sufix pour indiquer l'unite de mesure d'une valeur. Ici,
-// "_step" indique que la valeur est en pas.
-#define MAXE_END_X_step (255)
-#define MAXE_END_Y_step (255)
+// "_pixel" indique que la valeur est en pixel.
+#define Maze_END_X_pixel (255)
+#define Maze_END_Y_pixel (255)
 
-#define MAZE_SIZE_X_step (256)
-#define MAZE_SIZE_Y_step (256)
+#define Maze_SIZE_X_pixel (256)
+#define Maze_SIZE_Y_pixel (256)
 
-#define MAZE_START_X_step (0)
-#define MAXE_START_Y_step (0)
+#define Maze_START_X_pixel (0)
+#define Maze_START_Y_pixel (0)
 
 // ASCII protocol
 // //////////////////////////////////////////////////////////////////////////
@@ -108,10 +94,10 @@
 //   le serveur ignore simplement ce qui depasse.
 
 // Request - 1 line
-// {NORTH|EAST|SOUTH|WEST} {Distance_step} {MeasureBitField}
+// {NORTH|EAST|SOUTH|WEST} {Distance_pixel} {MeasureBitField}
 
 // Response - 1 line
-// {NORTH|EAST|SOUTH|WEST} {Distance_step} {DataNorth_step} {DataEast_step} {DataSouth_step} {DataWest_step}
+// {NORTH|EAST|SOUTH|WEST} {Distance_pixel} {DataNorth_pixel} {DataEast_pixel} {DataSouth_pixel} {DataWest_pixel}
 
 // Binary protocol
 // //////////////////////////////////////////////////////////////////////////
@@ -150,6 +136,8 @@
 // au compilateur qui dans plusieurs situation peut ameliorer l'optimisation
 // fine du code genere grace a cette information supplementaire.
 
+/// \brief Le client envoie cette structure au serveur apres avoir envoye le
+///        type de dommunication (ASCII ou BINARY).
 typedef struct
 {
     char mName[32];
@@ -158,26 +146,30 @@ typedef struct
 }
 Maze_Connect;
 
+/// \brief Le client envoie cette structure pour se deplecer et demander des
+///        mesures.
 typedef struct 
 {
     uint8_t mDirection;
-    uint8_t mDistance_step;
+    uint8_t mDistance_pixel;
     uint8_t mMeasures;
 
     uint8_t mReserved0[13];
 }
 Maze_Request;
 
+/// \brief Le serveur envoie cette structure pour confirmer un depleacement
+///        et retourner le resultat des mesurs.
 typedef struct
 {
     uint8_t mDirection;
-    uint8_t mDistance_step;
+    uint8_t mDistance_pixel;
     uint8_t mMeasures;
 
     uint8_t mReserved0[2];
 
-    uint8_t mData[MAZE_DIR_QTY];
+    uint8_t mData[Maze_DIR_QTY];
 
-    uint8_t mReserved0[8];
+    uint8_t mReserved1[8];
 }
 Maze_Response;
