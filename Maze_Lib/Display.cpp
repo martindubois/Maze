@@ -74,7 +74,6 @@ namespace Maze
         assert(NULL != mInstance);
 
         Class_Register();
-        Windows_Create();
     }
 
     Display::~Display()
@@ -136,6 +135,8 @@ namespace Maze
 
     Maze_Result Display::Show()
     {
+        Windows_Create();
+
         Maze_Result lResult = mBitmap.Open(mInput.c_str());
         if (Maze_OK == lResult)
         {
