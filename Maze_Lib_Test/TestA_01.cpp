@@ -22,7 +22,7 @@ int TestA_01()
 
     TEST_ASSERT(Maze_ERROR_FILE_CREATE == lB0.Open("DoesNotExist.bmp"));
 
-    TEST_ASSERT(Maze_ERROR_FORMAT == lB0.Open(Maze_Lib_Test\\TestA_01_0.bin));
+    TEST_ASSERT(Maze_ERROR_FORMAT == lB0.Open("Maze_Lib_Test\\TestA_01_0.bin"));
 
     TEST_ASSERT(Maze_ERROR_SIZE == lB0.Open("Maze_Lib_Test\\TestA_01_0.bmp"));
     TEST_ASSERT(Maze_ERROR_BAD  == lB0.Open("Maze_Lib_Test\\TestA_01_1.bmp"));
