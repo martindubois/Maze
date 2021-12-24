@@ -85,6 +85,12 @@ namespace Maze
         /// \retval true  Est un chemin
         bool IsTrail(Position aPos) const;
 
+        /// \brief Est-ce inconnue ?
+        /// \param aPos La position
+        /// \retval false N'est pas inconnue
+        /// \retval true  Est inconnue
+        bool IsUnknown(Position aPos) const;
+
         /// \brief Ouvrir un fichier bitmap existant
         /// \param aFileName Le nom du fichier
         /// \retval Maze_OK

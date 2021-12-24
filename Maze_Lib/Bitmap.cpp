@@ -140,6 +140,7 @@ namespace Maze
 
     bool Bitmap::IsBrick(Position aPos) const { return IsPixel(aPos, Color::BRICK); }
     bool Bitmap::IsTrail(Position aPos) const { return IsPixel(aPos, Color::TRAIL); }
+    bool Bitmap::IsUnknown(Position aPos) const { return IsPixel(aPos, Color::UNKNOWN); }
 
     Maze_Result Bitmap::Open(const char* aFileName)
     {

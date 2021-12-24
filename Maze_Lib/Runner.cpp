@@ -182,14 +182,14 @@ namespace Maze
 
             Maze::Position lPos;
 
-            if (mPosition.GetNeighbor(lNewDir % Maze_DIR_QTY, &lPos) && mBitmap.IsTrail(lPos))
+            if (mPosition.GetNeighbor(lNewDir % Maze_DIR_QTY, &lPos) && (mBitmap.IsTrail(lPos) || mBitmap.IsPixel(lPos, Color::RED)))
             {
                 mDirection = lNewDir;
                 Request(mDirection, 1, Maze_DIR_ALL_BITS, aResponse);
                 break;
             }
 
-            if (mPosition.GetNeighbor(mDirection, &lPos) && mBitmap.IsTrail(lPos))
+            if (mPosition.GetNeighbor(mDirection, &lPos) && (mBitmap.IsTrail(lPos) || mBitmap.IsPixel(lPos, Color::RED)))
             {
                 Request(mDirection, 1, Maze_DIR_ALL_BITS, aResponse);
                 break;
@@ -209,14 +209,14 @@ namespace Maze
 
             Maze::Position lPos;
 
-            if (mPosition.GetNeighbor(lNewDir % Maze_DIR_QTY, &lPos) && mBitmap.IsTrail(lPos))
+            if (mPosition.GetNeighbor(lNewDir % Maze_DIR_QTY, &lPos) && (mBitmap.IsTrail(lPos) || mBitmap.IsPixel(lPos, Color::RED)))
             {
                 mDirection = lNewDir;
                 Request(mDirection, 1, Maze_DIR_ALL_BITS, aResponse);
                 break;
             }
 
-            if (mPosition.GetNeighbor(mDirection, &lPos) && mBitmap.IsTrail(lPos))
+            if (mPosition.GetNeighbor(mDirection, &lPos) && (mBitmap.IsTrail(lPos) || mBitmap.IsPixel(lPos, Color::RED)))
             {
                 Request(mDirection, 1, Maze_DIR_ALL_BITS, aResponse);
                 break;
@@ -266,7 +266,10 @@ namespace Maze
                     bool lRet = lPosition.Go_Direction(lDir, 1);
                     assert(lRet);
 
-                    mBitmap.SetPixel(lPosition, Color::TRAIL);
+                    if (mBitmap.IsUnknown(lPosition))
+                    {
+                        mBitmap.SetPixel(lPosition, Color::TRAIL);
+                    }
                 }
 
                 if (lPosition.Go_Direction(lDir, 1))
