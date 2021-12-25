@@ -31,8 +31,8 @@ int TestA_05()
     TEST_ASSERT(Maze_OK == lR0.SetMode(Maze::Race::MODE_REQUEST));
     TEST_ASSERT(Maze_OK == lR0.SetRunnerCount(1));
     TEST_ASSERT(Maze_OK == lR0.SetSeed(1));
-    TEST_ASSERT(Maze_OK == lR0.SetSlow(static_cast<unsigned int>(0)));
-    TEST_ASSERT(Maze_OK == lR0.SetZoom(static_cast<unsigned int>(0)));
+    TEST_ASSERT(Maze_OK == lR0.SetSlow(0));
+    TEST_ASSERT(Maze_OK == lR0.SetZoom(0));
 
     TEST_ASSERT(Maze_OK == lR0.Property_Set("Generator"  , "Maze_Gen0.exe"));
     TEST_ASSERT(Maze_OK == lR0.Property_Set("MazeName"   , "Test.bmp"));

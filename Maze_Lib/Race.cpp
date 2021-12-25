@@ -187,13 +187,14 @@ namespace Maze
         if ((NULL == aName) || (NULL == aValue)) { return Maze_ERROR_POINTER; }
 
         if (0 == _stricmp("Generator", aName)) { return SetGenerator(aValue); }
-        if (0 == _stricmp("MazeName", aName)) { return SetMazeName(aValue); }
-        if (0 == _stricmp("Mode", aName)) { return SetMode(aValue); }
-        if (0 == _stricmp("RunnerCount", aName)) { return SetRunnerCount(aValue); }
-        if (0 == _stricmp("Seed", aName)) { return SetSeed(aValue); }
-        if (0 == _stricmp("Slow", aName)) { return SetSlow(aValue); }
-        if (0 == _stricmp("TcpPort", aName)) { return SetTcpPort(aValue); }
-        if (0 == _stricmp("Zoom", aName)) { return SetZoom(aValue); }
+        if (0 == _stricmp("MazeName" , aName)) { return SetMazeName (aValue); }
+
+        if (0 == _stricmp("Mode"       , aName)) { return SetMode_Str       (aValue); }
+        if (0 == _stricmp("RunnerCount", aName)) { return SetRunnerCount_Str(aValue); }
+        if (0 == _stricmp("Seed"       , aName)) { return SetSeed_Str       (aValue); }
+        if (0 == _stricmp("Slow"       , aName)) { return SetSlow_Str       (aValue); }
+        if (0 == _stricmp("TcpPort"    , aName)) { return SetTcpPort_Str    (aValue); }
+        if (0 == _stricmp("Zoom"       , aName)) { return SetZoom_Str       (aValue); }
 
         return Maze_OK_IGNORED;
     }
@@ -340,7 +341,7 @@ namespace Maze
 
         if (0 < mZoom)
         {
-            Utl_Display_Start(lTmpName, mZoom);
+            Utl_Display_Start(lTmpName, "Race", mZoom);
         }
     }
 
@@ -389,7 +390,7 @@ namespace Maze
         // TODO
     }
 
-    Maze_Result Race::SetMode(const char* aIn)
+    Maze_Result Race::SetMode_Str(const char* aIn)
     {
         assert(NULL != aIn);
 
@@ -401,7 +402,7 @@ namespace Maze
         return Maze_ERROR_INVALID;
     }
 
-    Maze_Result Race::SetRunnerCount(const char* aIn)
+    Maze_Result Race::SetRunnerCount_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -414,7 +415,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Race::SetSeed(const char* aIn)
+    Maze_Result Race::SetSeed_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -427,7 +428,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Race::SetSlow(const char* aIn)
+    Maze_Result Race::SetSlow_Str(const char* aIn)
     {
         unsigned int lIn_ms;
 
@@ -440,7 +441,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Race::SetTcpPort(const char* aIn)
+    Maze_Result Race::SetTcpPort_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -453,7 +454,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Race::SetZoom(const char* aIn)
+    Maze_Result Race::SetZoom_Str(const char* aIn)
     {
         unsigned int lIn;
 

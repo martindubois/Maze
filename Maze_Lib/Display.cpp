@@ -159,10 +159,11 @@ namespace Maze
     {
         if ((NULL == aName) || (NULL == aValue)) { return Maze_ERROR_POINTER; }
 
-        if (0 == _stricmp("Input" , aName)) { return SetInput (aValue); }
-        if (0 == _stricmp("Period", aName)) { return SetPeriod(aValue); }
-        if (0 == _stricmp("Title" , aName)) { return SetTitle (aValue); }
-        if (0 == _stricmp("Zoom"  , aName)) { return SetZoom  (aValue); }
+        if (0 == _stricmp("Input", aName)) { return SetInput(aValue); }
+        if (0 == _stricmp("Title", aName)) { return SetTitle(aValue); }
+
+        if (0 == _stricmp("Period", aName)) { return SetPeriod_Str(aValue); }
+        if (0 == _stricmp("Zoom"  , aName)) { return SetZoom_Str  (aValue); }
 
         return Maze_OK_IGNORED;
     }
@@ -272,7 +273,7 @@ namespace Maze
         }
     }
 
-    Maze_Result Display::SetPeriod(const char* aIn)
+    Maze_Result Display::SetPeriod_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -285,7 +286,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Display::SetZoom(const char* aIn)
+    Maze_Result Display::SetZoom_Str(const char* aIn)
     {
         unsigned int lIn;
 

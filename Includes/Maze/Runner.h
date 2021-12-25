@@ -106,9 +106,9 @@ namespace Maze
         void Receive(void* aOut, int aSize_byte);
         void Send(const void * aIn, int aSize_byte);
 
-        Maze_Result SetHand   (const char* aIn);
-        Maze_Result SetTcpPort(const char* aIn);
-        Maze_Result SetZoom   (const char* aIn);
+        Maze_Result SetHand_Str   (const char* aIn);
+        Maze_Result SetTcpPort_Str(const char* aIn);
+        Maze_Result SetZoom_Str   (const char* aIn);
 
         unsigned int mHand;
         uint32_t     mIPv4;

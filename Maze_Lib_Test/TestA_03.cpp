@@ -29,7 +29,7 @@ int TestA_03()
     TEST_ASSERT(Maze_ERROR_MIN == lD0.SetPeriod(14));
     TEST_ASSERT(Maze_ERROR_POINTER == lD0.SetTitle(NULL));
     TEST_ASSERT(Maze_ERROR_MAX == lD0.SetZoom(5));
-    TEST_ASSERT(Maze_ERROR_MIN == lD0.SetZoom(static_cast<unsigned int>(0)));
+    TEST_ASSERT(Maze_ERROR_MIN == lD0.SetZoom(0));
 
     TEST_ASSERT(Maze_ERROR_POINTER == lD0.Property_Set(NULL, "Value"));
     TEST_ASSERT(Maze_ERROR_POINTER == lD0.Property_Set("Property", NULL));

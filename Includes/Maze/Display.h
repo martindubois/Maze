@@ -92,8 +92,8 @@ namespace Maze
 
         void Run();
 
-        Maze_Result SetPeriod(const char* aIn);
-        Maze_Result SetZoom  (const char* aIn);
+        Maze_Result SetPeriod_Str(const char* aIn);
+        Maze_Result SetZoom_Str  (const char* aIn);
 
         void Windows_Create();
 

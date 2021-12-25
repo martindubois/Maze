@@ -19,7 +19,7 @@ extern "C"
 // Functions
 // //////////////////////////////////////////////////////////////////////////
 
-extern void Utl_Display_Start(const char* aFileName, unsigned int aZoom);
+extern void Utl_Display_Start(const char* aFileName, const char * aTitle, unsigned int aZoom);
 
 extern SOCKET Utl_Socket_Create(uint16_t aLocalTcpPort = 0);
 extern void   Utl_Socket_Init  ();

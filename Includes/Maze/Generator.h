@@ -97,9 +97,9 @@ namespace Maze
 
         void Random_Init();
 
-        Maze_Result SetSill(const char* aIn);
-        Maze_Result SetSeed(const char* aIn);
-        Maze_Result SetZoom(const char* aIn);
+        Maze_Result SetFill_Str(const char* aIn);
+        Maze_Result SetSeed_Str(const char* aIn);
+        Maze_Result SetZoom_Str(const char* aIn);
 
         unsigned int mFill;
         std::string  mOutput;

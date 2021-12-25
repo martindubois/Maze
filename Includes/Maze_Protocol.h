@@ -60,10 +60,10 @@
 
 #define Maze_DIR_BIT(D) (1 << (D))
 
-#define Maze_DIR_NORTH_BIT Maze_DIR_BIT(MAZE_DIR_NORTH)
-#define Maze_DIR_EAST_BIT  Maze_DIR_BIT(MAZE_DIR_EAST)
-#define Maze_DIR_SOUTH_BIY Maze_DIR_BIT(MAZE_DIR_SOUTH)
-#define Maze_DIR_WEST_BIT  Maze_DIR_BIT(MAZE_DIR_WEST)
+#define Maze_DIR_NORTH_BIT Maze_DIR_BIT(Maze_DIR_NORTH)
+#define Maze_DIR_EAST_BIT  Maze_DIR_BIT(Maze_DIR_EAST)
+#define Maze_DIR_SOUTH_BIT Maze_DIR_BIT(Maze_DIR_SOUTH)
+#define Maze_DIR_WEST_BIT  Maze_DIR_BIT(Maze_DIR_WEST)
 
 #define Maze_DIR_ALL_BITS (0x0f)
 

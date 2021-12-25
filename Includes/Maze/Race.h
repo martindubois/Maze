@@ -132,12 +132,12 @@ namespace Maze
         void Run_Request    ();
         void Run_Thread     ();
 
-        Maze_Result SetMode       (const char * aIn);
-        Maze_Result SetRunnerCount(const char * aIn);
-        Maze_Result SetSeed       (const char * aIn);
-        Maze_Result SetSlow       (const char * aIn);
-        Maze_Result SetTcpPort    (const char * aIn);
-        Maze_Result SetZoom       (const char * aIn);
+        Maze_Result SetMode_Str       (const char * aIn);
+        Maze_Result SetRunnerCount_Str(const char * aIn);
+        Maze_Result SetSeed_Str       (const char * aIn);
+        Maze_Result SetSlow_Str       (const char * aIn);
+        Maze_Result SetTcpPort_Str    (const char * aIn);
+        Maze_Result SetZoom_Str       (const char * aIn);
 
         SOCKET Socket_Create();
 

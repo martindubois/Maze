@@ -13,9 +13,10 @@
 // Functions
 // //////////////////////////////////////////////////////////////////////////
 
-void Utl_Display_Start(const char* aFileName, unsigned int aZoom)
+void Utl_Display_Start(const char* aFileName, const char * aTitle, unsigned int aZoom)
 {
     assert(NULL != aFileName);
+    assert(NULL != aTitle);
 
     char lFolder[1024];
 
@@ -30,7 +31,7 @@ void Utl_Display_Start(const char* aFileName, unsigned int aZoom)
     char lCmd[2048];
     char lExe[1024];
 
-    sprintf_s(lCmd, sizeof(lCmd), "%s\\Maze_Show.exe Input=%s Zoom=%u", lFolder, aFileName, aZoom);
+    sprintf_s(lCmd, sizeof(lCmd), "%s\\Maze_Show.exe Input=%s Title=%s Zoom=%u", lFolder, aFileName, aTitle, aZoom);
     sprintf_s(lExe, sizeof(lExe), "%s\\Maze_Show.exe", lFolder);
 
     STARTUPINFO         lStart;

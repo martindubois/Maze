@@ -114,7 +114,7 @@ namespace Maze
 
                 if (0 < mZoom)
                 {
-                    Utl_Display_Start(lFileName, mZoom);
+                    Utl_Display_Start(lFileName, mName.c_str(), mZoom);
                 }
 
                 mSocket = Utl_Socket_Create();
@@ -140,11 +140,12 @@ namespace Maze
         assert(NULL != aName);
         assert(NULL != aValue);
 
-        if (0 == _stricmp("Hand"   , aName)) { return SetHand   (aValue); }
-        if (0 == _stricmp("IPv4"   , aName)) { return SetIPv4   (aValue); }
-        if (0 == _stricmp("Name"   , aName)) { return SetName   (aValue); }
-        if (0 == _stricmp("TcpPort", aName)) { return SetTcpPort(aValue); }
-        if (0 == _stricmp("Zoom"   , aName)) { return SetZoom   (aValue); }
+        if (0 == _stricmp("IPv4", aName)) { return SetIPv4(aValue); }
+        if (0 == _stricmp("Name", aName)) { return SetName(aValue); }
+
+        if (0 == _stricmp("Hand"   , aName)) { return SetHand_Str   (aValue); }
+        if (0 == _stricmp("TcpPort", aName)) { return SetTcpPort_Str(aValue); }
+        if (0 == _stricmp("Zoom"   , aName)) { return SetZoom_Str   (aValue); }
 
         return Maze_OK_IGNORED;
     }
@@ -253,28 +254,34 @@ namespace Maze
 
             if (0 < aResponse->mDistance_pixel)
             {
-                mPosition.Go_Direction(aDirection, aResponse->mDistance_pixel);
-                mBitmap.SetPixel(mPosition, Color::RED);
+                for (unsigned int i = 0; i < aResponse->mDistance_pixel; i++)
+                {
+                    mPosition.Go_Direction(aDirection);
+                    mBitmap.SetPixel(mPosition, Color::RED);
+                }
             }
 
             for (unsigned int lDir = 0; lDir < Maze_DIR_QTY; lDir++)
             {
-                Position lPosition(mPosition);
-
-                for (unsigned int i = 0; i < aResponse->mData[lDir]; i++)
+                if (0 != (aResponse->mMeasures & Maze_DIR_BIT(lDir)))
                 {
-                    bool lRet = lPosition.Go_Direction(lDir, 1);
-                    assert(lRet);
+                    Position lPosition(mPosition);
 
-                    if (mBitmap.IsUnknown(lPosition))
+                    for (unsigned int i = 0; i < aResponse->mData[lDir]; i++)
                     {
-                        mBitmap.SetPixel(lPosition, Color::TRAIL);
-                    }
-                }
+                        bool lRet = lPosition.Go_Direction(lDir, 1);
+                        assert(lRet);
 
-                if (lPosition.Go_Direction(lDir, 1))
-                {
-                    mBitmap.SetPixel(lPosition, Color::BRICK);
+                        if (mBitmap.IsUnknown(lPosition))
+                        {
+                            mBitmap.SetPixel(lPosition, Color::TRAIL);
+                        }
+                    }
+
+                    if (lPosition.Go_Direction(lDir, 1))
+                    {
+                        mBitmap.SetPixel(lPosition, Color::BRICK);
+                    }
                 }
             }
         }
@@ -343,7 +350,7 @@ namespace Maze
         }
     }
 
-    Maze_Result Runner::SetHand(const char* aIn)
+    Maze_Result Runner::SetHand_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -356,7 +363,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Runner::SetTcpPort(const char* aIn)
+    Maze_Result Runner::SetTcpPort_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -369,7 +376,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Runner::SetZoom(const char* aIn)
+    Maze_Result Runner::SetZoom_Str(const char* aIn)
     {
         unsigned int lIn;
 

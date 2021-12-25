@@ -84,7 +84,7 @@ namespace Maze
 
                 if (0 < mZoom)
                 {
-                    Utl_Display_Start(mOutput.c_str(), mZoom);
+                    Utl_Display_Start(mOutput.c_str(), "Generator", mZoom);
                     Sleep(100);
                 }
 
@@ -123,8 +123,9 @@ namespace Maze
     Maze_Result Generator::Property_Set(const char* aName, const char* aValue)
     {
         if (0 == _stricmp("Output", aName)) { return SetOutput(aValue); }
-        if (0 == _stricmp("Seed"  , aName)) { return SetSeed  (aValue); }
-        if (0 == _stricmp("Zoom"  , aName)) { return SetZoom  (aValue); }
+
+        if (0 == _stricmp("Seed", aName)) { return SetSeed_Str(aValue); }
+        if (0 == _stricmp("Zoom", aName)) { return SetZoom_Str(aValue); }
 
         return Maze_OK_IGNORED;
     }
@@ -186,7 +187,7 @@ namespace Maze
         srand((0 == mSeed) ? static_cast<unsigned int>(time(NULL)) : mSeed);
     }
 
-    Maze_Result Generator::SetSeed(const char* aIn)
+    Maze_Result Generator::SetSeed_Str(const char* aIn)
     {
         unsigned int lIn;
 
@@ -199,7 +200,7 @@ namespace Maze
         return lResult;
     }
 
-    Maze_Result Generator::SetZoom(const char* aIn)
+    Maze_Result Generator::SetZoom_Str(const char* aIn)
     {
         unsigned int lIn;
 
