@@ -124,7 +124,8 @@ namespace Maze
         
         const BITMAPINFO * GetInfo() const;
 
-        void SetPixel(Position aPos, unsigned int aBGR);
+        void Pixel_Enter(Position aPos, unsigned int aBGR);
+        void Pixel_Leave(Position aPos, unsigned int aBGR);
 
     private:
 

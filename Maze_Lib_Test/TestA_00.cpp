@@ -43,8 +43,8 @@ int TestA_00()
 
     TEST_ASSERT(NULL != lB1.GetInfo());
 
-    lB1.SetPixel(Maze::Position(1, 2), 0);
-    lB1.SetPixel(Maze::Position(1, 3), 0);
+    lB1.Pixel_Enter(Maze::Position(1, 2), 0);
+    lB1.Pixel_Leave(Maze::Position(1, 3), 0);
 
     return 0;
 }

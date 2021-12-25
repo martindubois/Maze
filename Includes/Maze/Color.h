@@ -21,6 +21,7 @@ namespace Maze
 
     public:
 
+        static const Color BLACK;
         static const Color BRICK;
         static const Color GRAY;
         static const Color RED;
@@ -57,10 +58,6 @@ namespace Maze
         /// \param aRGB
         /// \param aVal
         void Set(unsigned int aRGB, uint8_t aVal);
-
-    // Internal
-
-        void Fade();
 
     private:
 

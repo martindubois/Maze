@@ -139,6 +139,8 @@ void Interface::Move(const Maze_Request* aIn, Maze_Response* aOut)
 
     for (unsigned int i = 0; i < aIn->mDistance_pixel; i++)
     {
+        mBitmap->Pixel_Leave(lPos, mIndex);
+
         if (!lPos.Go_Direction(aIn->mDirection))
         {
             break;
@@ -156,7 +158,7 @@ void Interface::Move(const Maze_Request* aIn, Maze_Response* aOut)
 
         mStats.IncMoves();
 
-        mBitmap->SetPixel(lPos, mIndex);
+        mBitmap->Pixel_Enter(lPos, mIndex);
 
         mPosition = lPos;
 

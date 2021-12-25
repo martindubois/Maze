@@ -176,21 +176,25 @@ namespace Maze
         return mInfo;
     }
 
-    void Bitmap::SetPixel(Position aPos, unsigned int aBGR)
+    void Bitmap::Pixel_Enter(Position aPos, unsigned int aBGR)
     {
         Color* lPtr = GetPointer(aPos);
         assert(NULL != lPtr);
 
         if (Color::TRAIL == *lPtr)
         {
-            *lPtr = Color::UNKNOWN;
-        }
-        else
-        {
-            lPtr->Fade();
+            *lPtr = Color::BLACK;
         }
 
         lPtr->Set(aBGR, 255);
+    }
+
+    void Bitmap::Pixel_Leave(Position aPos, unsigned int aBGR)
+    {
+        Color* lPtr = GetPointer(aPos);
+        assert(NULL != lPtr);
+
+        lPtr->Set(aBGR, 128);
     }
 
     // Private

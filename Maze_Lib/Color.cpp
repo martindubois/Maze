@@ -20,6 +20,7 @@ namespace Maze
     // Public
     // //////////////////////////////////////////////////////////////////////
 
+    const Color Color::BLACK  (  0,   0,   0);
     const Color Color::BRICK  (  0,   0,   0);
     const Color Color::RED    (255,   0,   0);
     const Color Color::TRAIL  (255, 255, 255);
@@ -48,17 +49,6 @@ namespace Maze
         assert(3 > aBGR);
 
         mBGRA[aBGR] = aVal;
-    }
-
-    // Internal
-    // //////////////////////////////////////////////////////////////////////
-
-    void Color::Fade()
-    {
-        for (unsigned int i = 0; i < 3; i++)
-        {
-            mBGRA[i]--;
-        }
     }
 
 }
