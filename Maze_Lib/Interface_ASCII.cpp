@@ -16,6 +16,8 @@
 void Interface_ASCII::Connect()
 {
     // TODO
+
+    Interface::Connect();
 }
 
 bool Interface_ASCII::ProcessRequest()

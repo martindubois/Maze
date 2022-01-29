@@ -23,13 +23,15 @@ Interface::Interface()
 {
 }
 
-void Interface::Init(Maze::Bitmap* aBitmap, unsigned int aSlow_ms, unsigned int aIndex, uint32_t aIPv4, SOCKET aSocket)
+void Interface::Init(Maze::IInfo * aInfo, Maze::Bitmap* aBitmap, unsigned int aSlow_ms, unsigned int aIndex, uint32_t aIPv4, SOCKET aSocket)
 {
+    assert(NULL != aInfo);
     assert(NULL != aBitmap);
     assert(3 > aIndex);
     assert(0 != aIPv4);
     assert(NULL != aSocket);
 
+    mInfo = aInfo;
     mBitmap = aBitmap;
     mSlow_ms = aSlow_ms;
     mIndex = aIndex;
@@ -37,10 +39,15 @@ void Interface::Init(Maze::Bitmap* aBitmap, unsigned int aSlow_ms, unsigned int 
     mSocket = aSocket;
 }
 
-unsigned int       Interface::GetIndex() const { return mIndex; }
-uint32_t           Interface::GetIPv4 () const { return mIPv4; }
-const char       * Interface::GetName () const { return mName.c_str(); }
+void Interface::Connect()
+{
+    assert(NULL != mInfo);
+
+    mInfo->DisplayRunner(mIndex, mName.c_str(), mIPv4);
+}
+
 const Maze::Stats& Interface::GetStats() const { return mStats; }
+
 // Protected
 // //////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +55,8 @@ bool Interface::ProcessRequest(const Maze_Request* aIn, Maze_Response* aOut)
 {
     assert(NULL != aIn);
     assert(NULL != aOut);
+
+    assert(NULL != mInfo);
 
     mStats.IncRequests();
 
@@ -59,7 +68,13 @@ bool Interface::ProcessRequest(const Maze_Request* aIn, Maze_Response* aOut)
     Move   (aIn, aOut);
     Measure(aIn, aOut);
 
-    return Maze::Position::END == mPosition;
+    bool lResult = Maze::Position::END == mPosition;
+    if (lResult)
+    {
+        mInfo->DisplayWinner(mIndex, mName.c_str(), mStats);
+    }
+
+    return lResult;
 }
 
 int Interface::Receive(void* aOut, int aSize_byte)

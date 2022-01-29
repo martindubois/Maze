@@ -12,6 +12,7 @@
 
 // ===== Includes ===========================================================
 #include <Maze/Bitmap.h>
+#include <Maze/IInfo.h>
 #include <Maze/Stats.h>
 
 extern "C"
@@ -26,13 +27,10 @@ public:
 
     Interface();
 
-    void Init(Maze::Bitmap* aBitmap, unsigned int aSlow_ms, unsigned int aIndex, uint32_t aIPv4, SOCKET aSocket);
+    void Init(Maze::IInfo * aInfo, Maze::Bitmap* aBitmap, unsigned int aSlow_ms, unsigned int aIndex, uint32_t aIPv4, SOCKET aSocket);
 
-    virtual void Connect() = 0;
+    virtual void Connect();
 
-    unsigned int       GetIndex() const;
-    uint32_t           GetIPv4 () const;
-    const char       * GetName () const;
     const Maze::Stats& GetStats() const;
 
     virtual bool ProcessRequest() = 0;
@@ -54,12 +52,12 @@ private:
 
     Maze::Bitmap * mBitmap;
     unsigned int   mIndex;
+    Maze::IInfo  * mInfo;
     uint32_t       mIPv4;
     std::string    mName;
     Maze::Position mPosition;
     unsigned int   mSlow_ms;
     SOCKET         mSocket;
-
-    Maze::Stats mStats;
+    Maze::Stats    mStats;
 
 };

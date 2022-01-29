@@ -118,9 +118,7 @@ namespace Maze
         void Connect(SOCKET aSocket, uint32_t aIPv4);
 
         void DisplayTcpPort(SOCKET aSocket);
-        void DisplayRunner (Interface *aInterface);
         void DisplayStart  ();
-        void DisplayWinner (Interface *aInterface);
 
         void Maze_Generate();
         void Maze_Prepare ();

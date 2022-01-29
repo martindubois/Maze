@@ -31,6 +31,8 @@ void Interface_Binary::Connect()
     }
 
     SetName(lConnect.mName);
+
+    Interface::Connect();
 }
 
 bool Interface_Binary::ProcessRequest()

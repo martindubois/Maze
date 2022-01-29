@@ -42,6 +42,11 @@ extern "C"
 
 #define ZOOM_DEFAULT (4)
 
+// Static function declarations
+// //////////////////////////////////////////////////////////////////////////
+
+static DWORD WINAPI Run(LPVOID aParam);
+
 namespace Maze
 {
 
@@ -231,11 +236,9 @@ namespace Maze
 
         try
         {
-            lInterface->Init(&mBitmap, mSlow_ms, mInterfaces.size(), aIPv4, aSocket);
+            lInterface->Init(mInfo, &mBitmap, mSlow_ms, mInterfaces.size(), aIPv4, aSocket);
 
             lInterface->Connect();
-
-            DisplayRunner(lInterface);
 
             mInterfaces.push_back(lInterface);
         }
@@ -253,15 +256,6 @@ namespace Maze
         mInfo->DisplayStart();
     }
 
-    void Race::DisplayRunner(Interface* aInterface)
-    {
-        assert(NULL != aInterface);
-
-        assert(NULL != mInfo);
-
-        mInfo->DisplayRunner(aInterface->GetIndex(), aInterface->GetName(), aInterface->GetIPv4());
-    }
-
     void Race::DisplayTcpPort(SOCKET aSocket)
     {
         assert(INVALID_SOCKET != aSocket);
@@ -276,13 +270,6 @@ namespace Maze
         assert(0 == lRet);
 
         mInfo->DisplayTcpPort(ntohs(lAddr.sin_port));
-    }
-
-    void Race::DisplayWinner(Interface* aInterface)
-    {
-        assert(NULL != aInterface);
-
-        mInfo->DisplayWinner(aInterface->GetIndex(), aInterface->GetName(), aInterface->GetStats());
     }
 
     void Race::Maze_Generate()
@@ -360,12 +347,48 @@ namespace Maze
 
     void Race::Run_Measurement()
     {
-        // TODO;
+        unsigned int lMeasurement = 0;
+
+        while (0 < mInterfaces.size())
+        {
+            for (InterfaceList::iterator lIt = mInterfaces.begin(); lIt != mInterfaces.end(); lIt++)
+            {
+                if (lMeasurement >= (*lIt)->GetStats().GetMeasurments())
+                {
+                    if ((*lIt)->ProcessRequest())
+                    {
+                        mInterfaces.erase(lIt);
+                        delete (*lIt);
+                        break;
+                    }
+                }
+            }
+
+            lMeasurement++;
+        }
     }
 
     void Race::Run_Move()
     {
-        // TODO;
+        unsigned int lMove = 0;
+
+        while (0 < mInterfaces.size())
+        {
+            for (InterfaceList::iterator lIt = mInterfaces.begin(); lIt != mInterfaces.end(); lIt++)
+            {
+                if (lMove >= (*lIt)->GetStats().GetMoves())
+                {
+                    if ((*lIt)->ProcessRequest())
+                    {
+                        mInterfaces.erase(lIt);
+                        delete (*lIt);
+                        break;
+                    }
+                }
+            }
+
+            lMove++;
+        }
     }
 
     void Race::Run_Request()
@@ -376,9 +399,8 @@ namespace Maze
             {
                 if ((*lIt)->ProcessRequest())
                 {
-                    DisplayWinner(*lIt);
-
                     mInterfaces.erase(lIt);
+                    delete (*lIt);
                     break;
                 }
             }
@@ -387,7 +409,25 @@ namespace Maze
 
     void Race::Run_Thread()
     {
-        // TODO
+        unsigned int lCount = 0;
+        HANDLE lThreads[3];
+        DWORD lThreadIds[3];
+
+        for (InterfaceList::iterator lIt = mInterfaces.begin(); lIt != mInterfaces.end(); lIt++)
+        {
+            lThreads[lCount] = CreateThread(NULL, 0, ::Run, *lIt, CREATE_SUSPENDED, lThreadIds + lCount);
+            assert(NULL != lThreads);
+
+            lCount++;
+        }
+
+        for (unsigned int i = 0; i < lCount; i++)
+        {
+            DWORD lRet = ResumeThread(lThreads[i]);
+            assert(1 == lRet);
+        }
+
+        WaitForMultipleObjects(lCount, lThreads, TRUE, 1000000);
     }
 
     Maze_Result Race::SetMode_Str(const char* aIn)
@@ -480,4 +520,22 @@ namespace Maze
         return lResult;
     }
 
+}
+
+// Static functions
+// //////////////////////////////////////////////////////////////////////////
+
+DWORD WINAPI Run(LPVOID aParam)
+{
+    assert(NULL != aParam);
+
+    Interface* lInterface = reinterpret_cast<Interface *>(aParam);
+
+    while (!lInterface->ProcessRequest())
+    {
+    }
+
+    delete lInterface;
+
+    return 0;
 }
