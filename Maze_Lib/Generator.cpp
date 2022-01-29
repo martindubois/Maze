@@ -1,6 +1,6 @@
 
 // Author    KMS - Martin Dubois, P. Eng.
-// Copyright (C) 2021 KMS
+// Copyright (C) 2021-2022 KMS
 // License   http://www.apache.org/licenses/LICENSE-2.0
 // Product   Maze
 // File      Maze_Lib/Generator.cpp
@@ -90,7 +90,7 @@ namespace Maze
 
                 Random_Init();
 
-                mInfo->DisplayProgress_Start("Generting the maze");
+                mInfo->DisplayProgress_Start("Generating the maze");
 
                 GenerateBitmap(&lBitmap);
             }

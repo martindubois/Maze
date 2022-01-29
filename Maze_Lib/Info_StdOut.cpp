@@ -1,6 +1,6 @@
 
 // Author    KMS - Martin Dubois, P. Eng.
-// Copyright (C) 2021 KMS
+// Copyright (C) 2021-2022 KMS
 // License   http://www.apache.org/licenses/LICENSE-2.0
 // Product   Maze
 // File      Maze_Lib/Info_StdOut.cpp
@@ -53,10 +53,10 @@ namespace Maze
 
         switch (aMode)
         {
-        case Race::MODE_MEASUREMENT: printf("MEASURMENT"); break;
-        case Race::MODE_MOVE       : printf("MOVE"      ); break;
-        case Race::MODE_REQUEST    : printf("REQUEST"   ); break;
-        case Race::MODE_THREAD     : printf("THREAD"    ); break;
+        case Race::MODE_MEASUREMENT: printf("MEASUREMENT"); break;
+        case Race::MODE_MOVE       : printf("MOVE"       ); break;
+        case Race::MODE_REQUEST    : printf("REQUEST"    ); break;
+        case Race::MODE_THREAD     : printf("THREAD"     ); break;
 
         default:assert(false);
         }
@@ -88,11 +88,11 @@ namespace Maze
 
     void Info_StdOut::DisplayWinner(unsigned int aIndex, const char* aName, const Stats& aStats)
     {
-        printf("The runner %u, %s, reach the end (%u requests, %u moves, %u measurments)\n",
+        printf("The runner %u, %s, reach the end (%u requests, %u moves, %u measurements)\n",
             aIndex, aName,
             aStats.GetRequests(),
             aStats.GetMoves(),
-            aStats.GetMeasurments());
+            aStats.GetMeasurements());
     }
 
 }

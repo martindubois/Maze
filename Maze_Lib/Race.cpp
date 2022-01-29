@@ -1,6 +1,6 @@
 
 // Author    KMS - Martin Dubois, P. Eng.
-// Copyright (C) 2021 KMS
+// Copyright (C) 2021-2022 KMS
 // License   http://www.apache.org/licenses/LICENSE-2.0
 // Product   Maze
 // File      Maze_Lib/Race.cpp
@@ -353,7 +353,7 @@ namespace Maze
         {
             for (InterfaceList::iterator lIt = mInterfaces.begin(); lIt != mInterfaces.end(); lIt++)
             {
-                if (lMeasurement >= (*lIt)->GetStats().GetMeasurments())
+                if (lMeasurement >= (*lIt)->GetStats().GetMeasurements())
                 {
                     if ((*lIt)->ProcessRequest())
                     {

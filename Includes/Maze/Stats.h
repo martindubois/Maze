@@ -4,7 +4,7 @@
 
 /// \author    KMS - Martin Dubois, P. Eng.
 /// \brief     Classe Stats
-/// \copyright Copyright &copy; 2021 KMS
+/// \copyright Copyright &copy; 2021-2022 KMS
 /// \file      Includes/Maze/Stats.h
 
 #pragma once
@@ -22,7 +22,7 @@ namespace Maze
         Stats();
 
         /// \brief Optenir le nombre de mesures
-        unsigned int GetMeasurments() const;
+        unsigned int GetMeasurements() const;
 
         /// \brief Optenir le nombre de deplacement
         unsigned int GetMoves() const;
@@ -32,13 +32,13 @@ namespace Maze
 
     // Internal
 
-        void IncMeasurments();
-        void IncMoves      ();
-        void IncRequests   ();
+        void IncMeasurements();
+        void IncMoves       ();
+        void IncRequests    ();
 
     private:
 
-        unsigned int mMeasurments;
+        unsigned int mMeasurements;
         unsigned int mMoves;
         unsigned int mRequests;
 

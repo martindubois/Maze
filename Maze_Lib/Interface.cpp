@@ -1,6 +1,6 @@
 
 // Author    KMS - Martin Dubois, P. Eng.
-// Copyright (C) 2021 KMS
+// Copyright (C) 2021-2022 KMS
 // License   http://www.apache.org/licenses/LICENSE-2.0
 // Product   Maze
 // File      Maze_Lib/Interface.cpp
@@ -126,7 +126,7 @@ void Interface::Measure(const Maze_Request* aIn, Maze_Response* aOut)
     {
         if (0 != (aIn->mMeasures & Maze_DIR_BIT(lDir)))
         {
-            mStats.IncMeasurments();
+            mStats.IncMeasurements();
 
             Maze::Position lPos = mPosition;
 
